@@ -1,6 +1,6 @@
 // Create heading
 const heading = document.createElement("h2");
-heading.innerText = "How do you want your project to be";
+heading.innerText = "How do you want your project to be?";
 document.body.appendChild(heading);
 
 // Create toggle container
@@ -10,19 +10,19 @@ document.body.appendChild(container);
 
 // Toggle data
 const toggles = [
-  { id: "good", class: "g1", text: "good" },
-  { id: "cheap", class: "g2", text: "cheap" },
-  { id: "fast", class: "g3", text: "fast" }
+  { divId: "g1", checkboxId: "good", text: "Good" },
+  { divId: "g2", checkboxId: "cheap", text: "Cheap" },
+  { divId: "g3", checkboxId: "fast", text: "Fast" }
 ];
 
 // Create toggles
 toggles.forEach(item => {
   const div = document.createElement("div");
-  div.className = item.class;
+  div.id = item.divId;
 
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
-  checkbox.id = item.id;
+  checkbox.id = item.checkboxId;
   checkbox.className = "toggle";
 
   const span = document.createElement("span");
@@ -31,21 +31,16 @@ toggles.forEach(item => {
   div.appendChild(checkbox);
   div.appendChild(span);
   container.appendChild(div);
-});
 
-// Toggle logic
-document.querySelectorAll(".toggle").forEach(toggle => {
-  toggle.addEventListener("change", () => {
+  // Clicking div toggles checkbox
+  div.addEventListener("click", () => {
+    checkbox.checked = !checkbox.checked;
+
     const checked = document.querySelectorAll(".toggle:checked");
 
-    // Allow max 2 toggles
+    // Max 2 toggles
     if (checked.length > 2) {
       checked[0].checked = false;
     }
-
-    // Change checkbox color
-    document.querySelectorAll(".toggle").forEach(t => {
-      t.style.accentColor = t.checked ? "green" : "gray";
-    });
   });
 });
